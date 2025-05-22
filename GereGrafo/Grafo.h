@@ -22,4 +22,4 @@ typedef struct Grafo {
 Grafo* CriaGrafo(int numeroVertices);
 
 // Função responsável por limpar determinado grado
-int LimparGrafo(Grafo* g);
+int LimparGrafo(Grafo* grafo);

@@ -39,15 +39,15 @@ Grafo* CriaGrafo(int numVertices) {
 /// 1   -   sucesso
 /// 0   -   erro
 /// </returns>
-int LimparGrafo(Grafo* g) {
+int LimparGrafo(Grafo* grafo) {
 
     //  valida erro
-    if (!g) return 0;
+    if (!grafo) return 0;
 
-    for (int i = 0; i < g->numeroVertices; i++) {
-        if (g->antenas[i]) free(g->antenas[i]);
+    for (int i = 0; i < grafo->numeroVertices; i++) {
+        if (grafo->antenas[i]) free(grafo->antenas[i]);
 
-        Adjacencia* adj = g->adjacencia[i];
+        Adjacencia* adj = grafo->adjacencia[i];
         while (adj) {
             Adjacencia* temp = adj;
             adj = adj->proxima;

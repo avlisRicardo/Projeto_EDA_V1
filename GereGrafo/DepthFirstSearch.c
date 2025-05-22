@@ -45,7 +45,7 @@ int* Dfs(Grafo* grafo, int origem) {
     //  Verificação erros
     if (grafo == NULL || origem < 0 || origem >= grafo->numeroVertices) return NULL;
 
-    int* visitado = criarVisitado(g->numVertices);
+    int* visitado = criarVisitado(grafo->numeroVertices);
     DfsRecursivo(grafo, origem, visitado);
     return visitado;
 }
