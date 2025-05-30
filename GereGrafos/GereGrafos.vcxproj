@@ -22,6 +22,7 @@
     <ClInclude Include="Adjacencia.h" />
     <ClInclude Include="Antena.h" />
     <ClInclude Include="Ficheiro.h" />
+    <ClInclude Include="FicheiroBinario.h" />
     <ClInclude Include="Grafo.h" />
     <ClInclude Include="Operacoes.h" />
   </ItemGroup>
@@ -29,6 +30,7 @@
     <ClCompile Include="Adjacencia.c" />
     <ClCompile Include="Antena.c" />
     <ClCompile Include="Ficheiro.c" />
+    <ClCompile Include="FicheiroBinario.c" />
     <ClCompile Include="Grafo.c" />
     <ClCompile Include="Operacoes.c" />
   </ItemGroup>

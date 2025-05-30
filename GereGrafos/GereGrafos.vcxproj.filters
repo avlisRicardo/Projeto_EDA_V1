@@ -30,6 +30,9 @@
     <ClInclude Include="Operacoes.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
+    <ClInclude Include="FicheiroBinario.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Antena.c">
@@ -45,6 +48,9 @@
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
     <ClCompile Include="Operacoes.c">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
+    <ClCompile Include="FicheiroBinario.c">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
   </ItemGroup>

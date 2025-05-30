@@ -1,50 +1,75 @@
+/*
+*	@file	Grafo.c
+*	@brief	Alocação dinâmica de memória
+*			Implementação de funções de manipulação de grafos
+*	@Other	Elaborado para a disciplina de Estrutura de Dados Avançada
+*
+*	@Author	Ricardo Silva
+*	@date	Maio 2025
+*/
+
 #include "Grafo.h"
 #include <cstddef>
 
 /// <summary>
-/// Função responsável por criar determinado grafo
+/// Função responsável por criar um grafo com um número fixo de vértices
 /// </summary>
-/// <param name="numVertices">número de vértices do grafo</param>
-/// <returns>Apontador para o grafico criado</returns>
-static Grafo* CriarGrafo(int numVertices) {
+/// <returns>Apontador para o grafo criado ou NULL em caso de erro</returns>
+Grafo* CriarGrafo() {
+   
+    //  alocação de memória
+	Grafo* grafo = (Grafo*)malloc(sizeof(Grafo));
 
-    //  Aloca memória
-    Grafo* grafo = (Grafo*)malloc(sizeof(Grafo));
+	if (!grafo) {
+		return NULL; // Falha na alocação de memória
+	}
 
-    //  Cria grafo
-    grafo->numeroVertices = numVertices;
-    grafo->antenas = (Antena**)malloc(sizeof(Antena*) * numVertices);
-    grafo->adjacencia = (Adjacencia**)malloc(sizeof(Adjacencia*) * numVertices);
-
-    for (int i = 0; i < numVertices; i++) {
-        grafo->antenas[i] = NULL;
-        grafo->adjacencia[i] = NULL;
-    }
-
-    return grafo;
+	return grafo;
 }
 
 /// <summary>
-/// Procedimento responsável por libertar memória de determinado grafo
+/// Liberta os recursos de um grafo e indica sucesso
 /// </summary>
-/// <param name="grafo"></param>
-void RemoveGrafo(Grafo* grafo) {
+/// <param name="grafo">Ponteiro para o grafo</param>
+/// <returns>1 se foi libertado com sucesso, 0 se grafo era NULL</returns>
+int RemoveGrafo(Grafo* grafo, int* erro) {
 
-    //  percorre grafo
-    for (int i = 0; i < grafo->numeroVertices; i++) {
+	if (!grafo) {
+        if (erro)
+			*erro = 1; // Indica erro se o grafo é NULL
 
-        if (grafo->antenas[i])
-            free(grafo->antenas[i]);
+		return 0; // Grafo era NULL, não há nada a libertar
+	} 
 
-        Adjacencia* adjacenciaAtual = grafo->adjacencia[i];
-        while (adjacenciaAtual) {
-            Adjacencia* adjacenciaAux = adjacenciaAtual;
-            adjacenciaAtual = adjacenciaAux->proxima;
+    Antena* antenaAtual = grafo->listaAntenas;
+
+    while (antenaAtual) {
+
+        // Guardar próximo antes de libertar
+        Antena* proximaAntena = antenaAtual->proximaAntena;
+
+        // Liberta adjacências
+        Adjacencia* adjacencia = antenaAtual->adjacencias;
+        while (adjacencia) {
+            Adjacencia* adjacenciaAux = adjacencia;
+            adjacencia = adjacencia->proxima;
             free(adjacenciaAux);
         }
+
+        // Libertar a antena
+        free(antenaAtual);
+
+        // Passar para a próxima antena
+        antenaAtual = proximaAntena;
     }
 
-    free(grafo->antenas);
-    free(grafo->adjacencia);
+    // Libertar a estrutura principal do grafo
     free(grafo);
+
+	if (erro)
+		*erro = 0; // Indica sucesso na libertação
+
+    return 1;
 }
+
+

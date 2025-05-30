@@ -2,8 +2,7 @@
 #include "AntenaArquivo.h"
 #include "AntenaLocalizacao.h"
 
-
-
+#include "../GereGrafo/Grafo.h"
 int main() {
 
     //Antena* listaAntenas = NULL;
@@ -22,30 +21,28 @@ int main() {
     //ApresentaAntenas(listaAntenas);
 
     // Supondo que já tenha uma função para carregar o grafo de um ficheiro:
-    Grafo* grafo = CarregarGrafoDeFicheiro("dados_antenas.txt");
+    
 
-    if (!grafo) {
-        printf("Erro ao carregar o grafo.\n");
-        return 1;
-    }
+    /*
+    *   Lista Erros
+    *   0   -   Sucesso
+    *   1   -   Grafo null
+	*   2   -   Antena não encontrada
+	*   3   -   Número inválido de antenas
+    */
 
-    int origem = 0;   // Índice da antena de origem
-    int destino = 3;  // Índice da antena de destino
+    Grafo* grafo = CriarGrafo();
+    Antena* a1 = CriarAntena(1, 10, 20, 'A');
+    AdicionarAntena(grafo, a1);
 
-    // Chama a função que retorna os caminhos como string
-    char* caminhos = CaminhosEntreAntenasTexto(grafo, origem, destino);
+    int erro;
+    int sucesso = RemoveGrafo(grafo, &erro);
 
-    if (caminhos) {
-        printf("Caminhos entre antena %d e %d:\n%s", origem, destino, caminhos);
-        free(caminhos); // Importante liberar a memória retornada
+    if (!sucesso || erro != 0) {
+        printf("Erro ao remover o grafo (código: %d)\n", erro);
     }
     else {
-        printf("Não foi possível encontrar caminhos ou parâmetros inválidos.\n");
+        printf("Grafo removido com sucesso.\n");
     }
-
-    // Libera memória do grafo
-    liberarGrafo(grafo);
-
-    return 0;
 
 }
